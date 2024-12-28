@@ -37,14 +37,10 @@ MotorDatabase/
 ```
 
 ## Usage
-### For CSV Data
-- CSV files are stored in the `csv/` directory.
-- Each file is named according to the naming convention (todo: specify file naming convention).
+### todo: detail usage
 
-### For Scripts
-- Data processing and conversion scripts are located in the `scripts/` directory.
-- Example: Run `convert_to_csv.py` to convert manufacturer formats into the standardized CSV format.
-
+## Examples
+### todo: detail example use cases
 ---
 
 ## Contributing
