@@ -10,5 +10,6 @@ This document provides guidelines for naming conventions and CSV format specific
 ## CSV Contents and Organization
 
 ### Placeholder:
-- Specifications for CSV structure and column organization will go here.
+- Under no cirumstances may any cell contain a comma, as that will break the csv file.
+- Ideally the scripts will be robust so the important thing is only the column names and flat structure, and column order and data sorting is flexible. Will update if this flexibility is not implemented well.
 
