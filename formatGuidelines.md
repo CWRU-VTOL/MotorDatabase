@@ -3,12 +3,12 @@
 This document provides guidelines for naming conventions and CSV format specifications for the MotorDatabase project.
 
 ## Naming Convention for File Names
-(program TBD) will automatically determine the correct file name based on the following parameters:
+(program to be made) will automatically determine the correct file name based on the following parameters:
 - motor name
 - motor name suffix
 - motor name prefix
 - date accessed
-the details for specifying each of these will be determined later
+The details of this naming for generic, unlisted, and listed brands is detailed in namingGuidelines.md
 
 ## CSV Contents and Organization
 
@@ -76,11 +76,11 @@ the details for specifying each of these will be determined later
 | single_takeoff_weight_recommended | recommended maximum single takeoff weight                                                        | g             | 1750                                                                                           |
 
 ### Performance Parameters 
-| Parameter           | Description                                                                                      | Unit/Format   | Example       |
-|:--------------------|:-------------------------------------------------------------------------------------------------|:--------------|:--------------|
-| voltage             | Voltage of the motor for a specific datapoint                                                    | V             | 22            |
+| Parameter           | Description                                                                                      | Unit/Format   | Example       | Default
+|:--------------------|:-------------------------------------------------------------------------------------------------|:--------------|:--------------|:--------------
+| voltage             | Voltage of the motor for a specific datapoint                                                    | V             | 22            | 
 | current             | current of the motor for a specific datapoint                                                    | A             | 12            |
-| throttle            | Throttle percentage for a given datapoint.                                                       | %             | 75            |
+| throttle            | Throttle percentage for a given datapoint.                                                       | %             | 75            | 
 | power               | electrical power consumed by the motor for a datapoint (V*I)                                     | W             | 350           |
 | thrust              | thrust for a given datapoint                                                                     | g             | 1200          |
 | thrust_at_sea_level | mostly for motors like KDE which specify different thrust values at sea level                    | g             | 1300          |
@@ -89,15 +89,15 @@ the details for specifying each of these will be determined later
 | torque              | torque to drive the propeller for a given datapoint                                              | Nm            | 1             |
 | prop_diameter       | propeller diameter                                                                               | inches        | 22            |
 | prop_pitch          | propeller pitch angle                                                                            | inches        | 6.3           |
-| prop_blade_count    | propeller blade count                                                                            | Int           | 2             |
-| prop_isfolding      | is the propeller folding?                                                                        | boolean       | no            |
-| prop_iscarbon       | is the propeller carbon fiber (otherwise assumed polymer)                                        | boolean       | no            |
-| prop_name           | exact propeller name                                                                             | String        | KDE-DPA-ML-M4 |
+| prop_blade_count    | propeller blade count                                                                            | Int           | 2             | 2 
+| prop_isfolding      | is the propeller folding?                                                                        | boolean       | no            | no
+| prop_iscarbon       | is the propeller carbon fiber (otherwise assumed polymer)                                        | boolean       | no            | no
+| prop_name           | exact propeller name                                                                             | String        | KDE-DPA-ML-M4 | 
 | prop_weight         | weight of the specified parameters                                                               | g             | 100           |
-| temperature         | Max motor temperature reached under those conditions                                             | deg Celcius   | 60            |
-| allowable_duration  | Allowable duration to be operated under those conditions (typically applicable to max throttle). | seconds       | 120           |
-| ambient_temp        | ambient temperature for the test                                                                 | deg Celcius   | 22            |
-| ambient_pressure    | ambient pressure where testing occured                                                           | atm           | 1             |
+| temperature         | Max motor temperature reached under those conditions                                             | deg Celcius   | 60            | 
+| allowable_duration  | Allowable duration to be operated under those conditions (typically applicable to max throttle). | seconds       | 120           | 
+| ambient_temp        | ambient temperature for the test                                                                 | deg Celcius   | 25            | 22 
+| ambient_pressure    | ambient pressure where testing occured                                                           | atm           | 1             | 1
 
 ### Metadata Parameters
 For now, the metadata parameters will consist of any parameter listed there with "_source" added to the end of it.
