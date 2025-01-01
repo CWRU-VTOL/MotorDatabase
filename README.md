@@ -20,20 +20,17 @@ The lack of standardization can make comparing motors challenging. **MotorDataba
 - **Extensible**:
   - Allows inclusion of additional parameters as needed.
 
+## Requirements and Setup
+The main requirements to this project are python based.
+
+Please ensure that python 3.12 is installed and then create a **venv** at the root of this repository using **requirements.txt**.
+
+If you are on windows you can use **venv_help_windows.bat** to automatically set up the venv, assuming python 3.12 is installed.
+
 ## Repository Structure
 The repository is organized as follows:
 ```
-MotorDatabase/
-├── csv/                # Contains standardized motor CSV files
-│   ├── [example_motor].csv
-│   └── ...
-├── scripts/            # Data processing and conversion scripts
-│   ├── convert_to_csv.py
-│   ├── validate_csv.py
-│   └── ...
-├── README.md           # Project documentation
-├── formatGuidelines.md # Naming conventions and data format specifications
-└── LICENSE             # Licensing information
+TODO: add repository structure here
 ```
 
 ## Usage
