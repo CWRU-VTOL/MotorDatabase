@@ -71,7 +71,8 @@ def fetch_motors_from_grid(grid_page_url, target_csv):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def fetch_motor_table(grid_data_relative_path):
+# boolean istable: yes if fetching tables, no if fetching performance data
+def fetch_from_url(grid_data_relative_path, isTable):
 
     # Open the CSV file
     with open(grid_data_relative_path, "r", newline="") as csvfile:
@@ -90,13 +91,21 @@ def fetch_motor_table(grid_data_relative_path):
             price = csv_data[2][col_idx]  # Third row value (Price)
 
             if price.strip():  # Check if the price is not empty
-                print(f"URL: {url}, Name: {name}, Price: {price}")
-                csv_name = f"{get_file_name(prefixString,name,"table",dateString)}.csv"
-                create_empty_csv_file("motor_specs", csv_name)
+                # print(f"URL: {url}, Name: {name}, Price: {price}")
                 fullUrl = f"https://www.kdedirect.com{url}"
-                pathed_file_name = f"motor_specs\{csv_name}"
-                extract_table(fullUrl,pathed_file_name)
 
+                if isTable:
+                    csv_name = f"{get_file_name(prefixString,name,"table",dateString)}.csv"
+                    create_empty_csv_file("motor_specs", csv_name)
+                    pathed_csv_name = rf"motor_specs\{csv_name}"
+                    extract_table(fullUrl,pathed_csv_name)
+                else:
+                    pathed_file_name = rf"performance_specs\{get_file_name(prefixString,name,"performance",dateString)}.pdf"
+                    extract_performance_data(fullUrl,pathed_file_name)
+
+# go to specified url
+# find the table if its specified in a specific way like the KDE website has for their motors RN
+# saves that table to the csv file path specified
 def extract_table(url, csv_file_path):
     try:
         # Fetch the page content
@@ -134,8 +143,39 @@ def extract_table(url, csv_file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def fetch_performance_data(motor_link):
-    pass
+def extract_performance_data(url, full_file_path):
+    try:
+        # Fetch the page content
+        response = requests.get(url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, "html.parser")
+
+        # Locate all <li> tags that contain "(PDF)" in their text
+        list_items = soup.find_all("li")
+        pdf_link = None
+
+        for li in list_items:
+            # Check if "(PDF)" is in the text of the <li> tag
+            if "(PDF)" in li.get_text(strip=True):
+                # Find the <a> tag inside the <li> tag
+                pdf_link = li.find("a", href=True)
+                if pdf_link:
+                    break  # Stop at the first match
+
+        if pdf_link and "href" in pdf_link.attrs:
+            pdf_url = pdf_link["href"]
+            pdf_url = pdf_url if pdf_url.startswith("http") else f"https://cdn.shopify.com{pdf_url}"  # Handle relative URLs
+
+            # Download the PDF
+            download_pdf(pdf_url, full_file_path)
+            # print(f"PDF downloaded and saved to {full_file_path}")
+            print(f"Downloading from URL: {pdf_url} to {full_file_path}")
+        else:
+            print("No valid PDF link found in the list items.")
+
+    except requests.RequestException as e:
+        print(f"Error fetching the page: {e}")
+
 
 
 # === Utility Functions ===
@@ -167,6 +207,25 @@ def get_file_name (prefix, unfiltered_name, suffix, date):
     filtered_name = filtered_name.replace("-", "_")  # Replace all '-' with '_'
     return f"{prefix}-{filtered_name}-{suffix}-{date}"
 
+def download_pdf(url, save_path):
+    """
+    Downloads a PDF file from the given URL and saves it under the specified name.
+
+    Args:
+        url (str): The URL of the PDF file.
+        save_path (str): The full path, including the desired file name, to save the PDF.
+
+    Returns:
+        None
+    """
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        with open(save_path, "wb") as pdf_file:
+            pdf_file.write(response.content)
+        print(f"PDF downloaded and saved to {save_path}")
+    except requests.RequestException as e:
+        print(f"Error downloading the PDF: {e}")
 # === Main Script ===
 def main():
     
@@ -174,9 +233,9 @@ def main():
     
     # fetch_motors_from_grid("https://www.kdedirect.com/collections/uas-multi-rotor-brushless-motors","temp\gridData.csv")
     
-    # fetch_motor_table("temp\gridData.csv")
+    # fetch_from_url(r"temp\gridData.csv",True)
+    # fetch_from_url(r"temp\gridData.csv",False)
     pass
-    
 
 if __name__ == "__main__":
     main()
