@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 #import pandas as pd  # Optional: for table processing
 
 # === Global Constants ===
-
+dateString = "20241231"
+prefixString = "KDE"
 # === Main Functions ===
 
 # fetches motor price, name in string format, and url, for each item in the grid.
@@ -69,25 +70,36 @@ def fetch_motors_from_grid(grid_page_url, target_csv):
         print(f"Error fetching the grid page: {e}")
     except Exception as e:
         print(f"An error occurred: {e}")
-    
 
+def fetch_motor_table(grid_data_relative_path):
 
-def fetch_motor_table(motor_link):
-    pass
+    # Open the CSV file
+    with open(grid_data_relative_path, "r", newline="") as csvfile:
+        reader = csv.reader(csvfile)
+        csv_data = list(reader)  # Convert the reader object to a list for easy indexing
+
+        # Ensure the CSV has at least three rows
+        if len(csv_data) < 3:
+            print("CSV does not have enough rows.")
+            return
+
+        # Loop through the columns and check the value in the third row
+        for col_idx in range(len(csv_data[0])):  # Loop through columns
+            url = csv_data[0][col_idx]  # First row value (URL)
+            name = csv_data[1][col_idx]  # Second row value (Name)
+            price = csv_data[2][col_idx]  # Third row value (Price)
+
+            if price.strip():  # Check if the price is not empty
+                print(f"URL: {url}, Name: {name}, Price: {price}")
+                csv_name = f"{get_file_name(prefixString,name,"table",dateString)}.csv"
+                create_empty_csv_file("motor_specs", csv_name)
+
 
 def fetch_performance_data(motor_link):
     pass
 
 
 # === Utility Functions ===
-#this function takes in the whole string of the motor and shortens it to the motor name that can be used for the file name.
-def filter_motor_name(motor_name):
-    pass
-def is_ignored_motor(motor_name):
-    pass
-
-def create_folder(folder_path):
-    pass
 
 #creates new empty csv file if its empty, and replaces it with an empty file if it has contents
 def create_empty_csv_file(target_dir, csv_name):
@@ -108,12 +120,22 @@ def create_empty_csv_file(target_dir, csv_name):
     
     print(f"Empty {csv_name} file created at: {target_file}")
 
-
+# this function will convert the "name" string to the full file name as specified in the format
+#suffix will be "table" or "performance"
+def get_file_name (prefix, unfiltered_name, suffix, date):
+    filtered_name = unfiltered_name.split(" ")[0]  # Take everything before the first space
+    filtered_name = filtered_name.replace(" ", "")  # Remove any remaining spaces
+    filtered_name = filtered_name.replace("-", "_")  # Replace all '-' with '_'
+    return f"{prefix}-{filtered_name}-{suffix}-{date}"
 
 # === Main Script ===
 def main():
-    create_empty_csv_file("temp", "gridData.csv")
-    fetch_motors_from_grid("https://www.kdedirect.com/collections/uas-multi-rotor-brushless-motors","temp\gridData.csv")
+    
+    # create_empty_csv_file("temp", "gridData.csv")
+    
+    # fetch_motors_from_grid("https://www.kdedirect.com/collections/uas-multi-rotor-brushless-motors","temp\gridData.csv")
+    
+    fetch_motor_table("temp\gridData.csv")
     
 
 if __name__ == "__main__":

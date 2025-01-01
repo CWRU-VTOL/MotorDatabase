@@ -6,7 +6,7 @@ As detailed in formatGuidelines.md, the file name is constructed from the follow
 3. motor name suffix
 4. date accessed
 
-The file name is constructed by taking each parameter, formatting it properly, and combining them. 
+The file name is constructed by taking each parameter, formatting it properly, and combining them with dashes in between.
 
 Guidelines on how to format each parameter properly are listed below, and all scripting and programs expect this naming convention.
 
