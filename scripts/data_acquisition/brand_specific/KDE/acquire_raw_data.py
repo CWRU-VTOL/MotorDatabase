@@ -93,7 +93,46 @@ def fetch_motor_table(grid_data_relative_path):
                 print(f"URL: {url}, Name: {name}, Price: {price}")
                 csv_name = f"{get_file_name(prefixString,name,"table",dateString)}.csv"
                 create_empty_csv_file("motor_specs", csv_name)
+                fullUrl = f"https://www.kdedirect.com{url}"
+                pathed_file_name = f"motor_specs\{csv_name}"
+                extract_table(fullUrl,pathed_file_name)
 
+def extract_table(url, csv_file_path):
+    try:
+        # Fetch the page content
+        response = requests.get(url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, "html.parser")
+
+        # Locate the specifications section and table
+        specs_section = soup.find("section", id="specifications")
+        if not specs_section:
+            print(f"No specifications section found at {url}.")
+            return
+
+        table = specs_section.find("table")
+        if not table:
+            print(f"No table found in the specifications section at {url}.")
+            return
+
+        # Extract table rows and cells
+        rows = table.find_all("tr")
+        table_data = []
+        for row in rows:
+            cells = row.find_all(["td", "th"])  # Include table headers (th) and data (td)
+            table_data.append([cell.get_text(strip=True) for cell in cells])
+
+        # Write the table to the CSV file
+        with open(csv_file_path, "w", newline="", encoding="utf-8") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerows(table_data)
+
+        print(f"Table data successfully written to {csv_file_path}.")
+
+    except requests.RequestException as e:
+        print(f"Error fetching the URL {url}: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 def fetch_performance_data(motor_link):
     pass
@@ -135,7 +174,8 @@ def main():
     
     # fetch_motors_from_grid("https://www.kdedirect.com/collections/uas-multi-rotor-brushless-motors","temp\gridData.csv")
     
-    fetch_motor_table("temp\gridData.csv")
+    # fetch_motor_table("temp\gridData.csv")
+    pass
     
 
 if __name__ == "__main__":

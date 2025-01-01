@@ -1,0 +1,22 @@
+Kv (Motor Velocity Constant),885 RPM/V
+Kt (Motor Torque Constant),0.0108 Nm/A
+Km (Motor Constant),0.0303 Nm/√(W)
+Maximum Continuous Current*,24 A (180 s)
+Maximum Continuous Power*,355 W (180 s)
+Voltage Range,11.1 V (3S LiPo) - 26.1 V (6S LiHV)
+Io (@10V),0.5 A
+Rm (Wind Resistance),0.127 Ω
+Stator Poles,12 (12S14P)
+Magnetic Poles,14 (12S14P)
+Bearings,"Triple, MR84ZZ, MR104ZZ"
+Mount Pattern,"M3 xф19 mm, M2.5 xф16 mm, M3 xф16/19 mm"
+Stator Class,"2315, 0.2 mm Japanese"
+Shaft Diameter,ф4 mm (ф4 mm Internal)
+Shaft Length,3.5 mm
+Motor Diameter,ф28.3 mm
+Motor Rotor Inertia,0.041 kg*cm^2
+Motor Length,28.5 mm
+Motor Weight,64 g (75 g with Wires/Bullets)
+Propeller Size,"Up to 12"" (9"" Maximum on 6S)"
+Motor Advance Timing,22° - 30°
+Motor Drive Frequency,16 - 32 kHz

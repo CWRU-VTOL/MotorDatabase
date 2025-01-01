@@ -1,0 +1,22 @@
+Kv (Motor Velocity Constant),465 RPM/V
+Kt (Motor Torque Constant),0.0205 Nm/A
+Km (Motor Constant),0.0901 Nm/√(W)
+Maximum Continuous Current*,62 A (180 s)
+Maximum Continuous Power*,1375 W (180 s)
+Voltage Range,14.8 V (4S LiPo) - 26.1 V (6S LiHV)
+Io (@10V),0.7 A
+Rm (Wind Resistance),0.052 Ω
+Stator Poles,24 (24S22P)
+Magnetic Poles,22 (24S22P)
+Bearings,"Triple, 696ZZ/606ZZ"
+Mount Pattern,"M4/3 xф25 mm, M3/2.5 xф32 mm"
+Stator Class,"4215, 0.2 mm Japanese"
+Shaft Diameter,ф4 mm (ф6mm Internal)
+Shaft Length,5.5 mm
+Motor Diameter,ф48.2 mm
+Motor Rotor Inertia,0.302 kg*cm^2
+Motor Length,36 mm
+Motor Weight,195 g (250 g with Wires/Bullets)
+Propeller Blade Size,"Up to18.5""-TP(18.5""-DPMaximum on 6S)"
+Motor Advance Timing,22° - 30°
+Motor Drive Frequency,16 - 32 kHz
