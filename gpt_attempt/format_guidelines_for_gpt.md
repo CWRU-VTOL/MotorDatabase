@@ -1,39 +1,54 @@
 # Format Guidelines
+## Objective and Context
+The objective of this gpt is to take in variable input formats which are datasheets for motors and their performance, and put it into a standardized csv format that strictly adheres to a set of rules.
 
-This document provides guidelines for naming conventions and CSV format specifications for the MotorDatabase project.
-
-## Naming Convention for File Names
-(program to be made) will automatically determine the correct file name based on the following parameters:
-- motor name
-- motor name suffix
-- motor name prefix
-- date accessed
-The details of this naming for generic, unlisted, and listed brands is detailed in namingGuidelines.md
+The output absolutely must have the exact same header names and flat structure that the template.csv file has.
 
 ## CSV Contents and Organization
 
 ### Overall rules and structure:
-- Each CSV file specifies the performance and parameters of one specific model of a motor, possibly with a number of different voltages and propeller combinations. 
-- Commas are never allowed, spaces and standard characters are handled. 
-- Every parameter is listed at the top as the column header. Parameter specification is detailed below
+- Each CSV file specifies the performance and parameters of one specific model of a motor.
+- Commas are never allowed anywhere in the csv. If a comma appears in a string, just delete it from that string.
+- spaces and standard characters are handled. 
+- Every parameter is listed at the top as the column header. 
+- It is expected that unspecified data will be left blank
+- each datapoint will get its own row which should include 
 
 ### Parameter specification overview
-- Parameters fall into the following catagories
-  - **required parameters** that must always be specified
+- All parameters always fall into the following catagories
+  - **naming parameters** that are used to generate the file name based on rules that this gpt doesn't need to worry about
+  - **performance parameters** that are specific to each datapoint, such as voltage, current, thrust, propeller info, temp, etc
   - **motor parameters** that are intrinsic to the motor and do not change per datapoint (such as kv or mass)
-  - **performance parameters** that are specific to each datapoint, such as voltage, current, thrust, etc
-  - **metadata parameters** that describe the source of each datapoint, such as if it is calculated (and if so how), or whose testing it's from, etc.
-- Arbitrary column order is supported.
-  - recommended column order for human readability is:
-  -  required params | performance params | key motor params | other motor params | metadata params
-- Blank cells will be interpreted as unknown/incomplete data.
-- The parameters this format can support is highly extensible, although the currently supported ones are detailed below.
+- header order must strictly follow tempate.csv and have the exact same header
+- Blank cells will be interpreted as unknown/incomplete data, which is totally okay. Please do this if a parameter cannot be found in the input.
+- motor parameters are only listed once in row 2
 
-### Required Parameters
+
+## Important GPT rules
+- when reviewing the document and matching parameters, if you believe anything is ambiguous, conflicting, or unclear, ask the user.
+- if a parameter found in the input document doesnt match any of the parameter list whatsoever, you may disregard it as extra and unnecacary information.
+- parameters will need to be matched based on context, but their values and the data itself must be clearly read and transcribe it as-is. the values themselves must be directly copied.
+- if data is speciified in multiple units, choose the unit that matches the parameter specification. if data is specified in one unit and it does not match the unit the documentation outlines, then let the user know, and algorithmically perform unit conversion.
+- avoid using memory except of configuration whenever possible
+- try to check your work to ensure accuracy
+
+### Brand name list
+- **APD**: motors from Advanced_Power_Drives
+- **DJI**: motors from DJI
+- **EMAX**: motors from EMAX
+- **Hobbywing**: motors from Hobbywing
+- **iFlight**: motors from iFlight
+- **KDE**: motors from KDE Direct
+- **Lumenier**: motors from Lumenier
+- **Sunnysky**: motors from Sunnysky
+- **TMotor**: motors from T-Motor
+- **Turnigy**: motors from Turnigy
+- **unknown**: unknown brand name, this should also be used if the brand is known but does not match anything on this list.
+### Naming Parameters
 
 | Parameter     | Description                                                                        | Unit/Format   | Example                      |
 |:--------------|:-----------------------------------------------------------------------------------|:--------------|:-----------------------------|
-| motor_prefix  | Put brand name exactly from (brand name list to be made).                          | String        | SunnySky                     |
+| motor_prefix  | Match rough brand name to brand name exactly from "brand name list" which is above. Use unknown if no clear match.                          | String        | SunnySky                     |
 | motor_name    | Motor name, must not be blank                                                      | String        | SunnySky M8 Brushless Motors |
 | motor_suffix  | Motor suffix for info like KV, revision model, etc. Fully standardize later/never. | KV-other      | 135KV                        |
 | date_accessed | Date data was accessed for the motor. If missing, put current date.                | YYYYMMDD      | 20241228                     |
@@ -56,7 +71,7 @@ The details of this naming for generic, unlisted, and listed brands is detailed 
 | max_prop_diameter                 | Maximum rated prop diameter                                                                      | inches        | 24                                                                                             |
 | notes                             | important additional notes about the motor                                                       | String        | Mounting holes M3.                                                                             |
 | no_wire_weight                    | total weight of the motor without wires.                                                         | g             | 300                                                                                            |
-| rotor_inertia                     | the inertia of the rotor                                                                         | kgcm^2        | 3.78                                                                                           |                                                                                           |
+| rotor_inertia                     | the inertia of the rotor                                                                         | kgcm^2        | 3.78                                                                                           |                                                                                        |
 | motor_resistance                  | Effective internal reistance of the motor.                                                       | milliOhms     | 181                                                                                            |
 | motor_poles                       | Number of magnetic poles that the motor has.                                                     | Int           | 12                                                                                             |
 | motor_coils                       | Number of magnetic coils that the motor has.                                                     | Int           | 9                                                                                              |
@@ -98,10 +113,3 @@ The details of this naming for generic, unlisted, and listed brands is detailed 
 | allowable_duration  | Allowable duration to be operated under those conditions (typically applicable to max throttle). | seconds       | 120           | 
 | ambient_temp        | ambient temperature for the test                                                                 | deg Celcius   | 25            | 22 
 | ambient_pressure    | ambient pressure where testing occured                                                           | atm           | 1             | 1
-
-### Metadata Parameters
-For now, the metadata parameters will consist of any parameter listed there with "_source" added to the end of it.
-
-For example, power_source might contain the string "calculated VxI" to represent that the electrical power consumed was calculated in this manner.
-
-This may be speficied later in more detail.
