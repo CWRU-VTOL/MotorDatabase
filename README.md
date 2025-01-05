@@ -22,7 +22,7 @@ The main usage of the repository is as follows:
 
 It is recommended to read [formatGuidelines.md](reference/formatGuidelines.md) and [namingGuidelines.md](reference/namingGuidelines.md) to understand how the data is structured.
 
-The **scripts** and **utility** folders have README's that provide further details on their usage.
+The **scripts** and **workflow** folders have README's that provide further details on their usage.
 ## Structure 
 The repository is structured as follows:
 
@@ -35,7 +35,7 @@ MotorDatabase/
 │   ├── template.csv
 │   └── template_simplified.csv
 ├── scripts/
-├── utility/
+├── workflow/
 ├── requirements.txt
 ├── LICENSE
 └── README.md
@@ -53,7 +53,7 @@ MotorDatabase/
     - `template_simplified.csv`: Simplified template.
 - **scripts/**
   - Miscellaneous scripts, tools, and some raw extracted data.
-- **utility/**
+- **workflow/**
   - Contains the main utitilites and programs for acquiring, processing, cleaning, displaying, and exporting motor data. 
   - Currently a work in progress, ideally will eventually have a GUI or at least a single streamlined main program.  
 - `requirements.txt`
@@ -68,7 +68,7 @@ The main requirements to this project are python based, and use a virtual python
 
 Please ensure that **Python 3.12** is installed and then create a **venv** at the root of this repository using **requirements.txt**.
 
-If you are on Windows you can use **utility\venv_help_windows.bat** to automatically set up the venv, assuming python 3.12 is installed. 
+If you are on Windows you can use **workflow\setup\venv_help_windows.bat** to automatically set up the venv, assuming python 3.12 is installed. 
 
 *Note that as of 1/4/25 certain scripts or utilities may reference file paths in a windows-specific way, and Linux or Mac compatibility is currently untested for these components.*
 *Further documentation and resources for python setup help may be added in the future if needed.*

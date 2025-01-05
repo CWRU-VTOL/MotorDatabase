@@ -84,3 +84,7 @@ docs/_build/
 *.bak
 *.swp
 *.tmp
+
+# ignore contents but not existance of temp folder in utilities
+workflow/temp/*
+!workflow/temp/.gitkeep

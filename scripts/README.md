@@ -1,6 +1,6 @@
 # scripts
 ## Overview
-### Note: This repository is transitioning to the **utility** folder with more generalized and structured utilities to replace this scripts folder and its contents.
+### Note: This repository is transitioning to the **workflow** folder with more generalized and structured utilities to replace this scripts folder and its contents.
 
 This folder contains scripts that are intended to help in acquiring and processing the UAV motor data into the standardized format we made here.
 
