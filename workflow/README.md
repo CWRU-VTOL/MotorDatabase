@@ -6,6 +6,7 @@ This folder contains the main utilities and programs for acquiring, processing, 
 
 This is currently a work in progress. Ideally, it will eventually have a GUI or at least a single streamlined main program.
 
+Each python script should have detailed documentation in the docstring for its usage and functions.
 ## Process
 Typical steps (may use together or in parts):
 1. Acquire data:
@@ -24,7 +25,7 @@ Typical steps (may use together or in parts):
     - Validation can be performed at each step and utilizes **validation.py**.
     - **file_utils.py** provides utilities both used by each step and useful on their own for importing and exporting data.
 
-## Contents
+## Contents and Structure
 ```
 workflow/
 ├── setup/
@@ -43,6 +44,7 @@ workflow/
 ├── workflow.py
 ```
 
+*Note: considering switching to structure with utils for utilities useful across the process, preprocess for handling inputs and non-standardized data, and process for processing mostly standardized data.*
 ## Setup
 Follow the **README.md** in the setup folder for help setting up the Python dependencies, including links to guides and troubleshooting steps.
 
