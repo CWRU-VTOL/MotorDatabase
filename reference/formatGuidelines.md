@@ -96,6 +96,7 @@ The details of this naming for generic, unlisted, and listed brands is detailed 
 | prop_weight         | weight of the specified parameters                                                               | g             | 100           |
 | temperature         | Max motor temperature reached under those conditions                                             | deg Celcius   | 60            | 
 | allowable_duration  | Allowable duration to be operated under those conditions (typically applicable to max throttle). | seconds       | 120           | 
+| time  | Time in seconds after test is started, if applicable. | seconds       | 0           | 
 | ambient_temp        | ambient temperature for the test                                                                 | deg Celcius   | 25            | 22 
 | ambient_pressure    | ambient pressure where testing occured                                                           | atm           | 1             | 1
 

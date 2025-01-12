@@ -86,5 +86,5 @@ docs/_build/
 *.tmp
 
 # ignore contents but not existance of temp folder in utilities
-workflow/temp/*
-!workflow/temp/.gitkeep
+pipeline/temp/*
+!pipeline/temp/.gitkeep
